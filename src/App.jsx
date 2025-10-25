@@ -54,69 +54,55 @@ function App() {
 };
 
   const savePassword = async () => {
-    if (form.site.length > 0 && form.username.length > 0 && form.password.length > 3) {
+    if (form.site && form.username && form.password.length > 3) {
       toast('Password Saved Successfully!', {
         position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        autoClose: 3000,
         theme: "dark"
       });
 
-      await fetch("http://localhost:3000/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: form.id }) })
+      const isEditing = !!form.id;
+      let newPasswordArray;
+      let newEntry;
 
-      setpasswordArray([...passwordArray, { ...form, id: uuidv4() }])
-      await fetch("http://localhost:3000/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, id: uuidv4() }) })
-      // localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]))
-      // console.log([...passwordArray, form])
+      if (isEditing) {
+        newEntry = form;
+        newPasswordArray = passwordArray.map(item =>
+          item.id === form.id ? newEntry : item
+        );
+
+        await fetch("http://localhost:3000/", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: form.id })
+        });
+      } else {
+        newEntry = { ...form, id: uuidv4() };
+        newPasswordArray = [...passwordArray, newEntry];
+      }
+
+      await fetch("http://localhost:3000/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newEntry)
+      });
+
+      setpasswordArray(newPasswordArray);
       setform({ site: "", username: "", password: "" });
-    }
-    else if (form.site.length <= 0) {
-      toast('Invalid URL!', {
+    } else {
+      toast('Invalid input! Fill all fields correctly.', {
         position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        autoClose: 3000,
         theme: "dark"
       });
     }
-    else if (form.username.length <= 0) {
-      toast('Invalid Username!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark"
-      });
-    }
-    else {
-      toast('Your Password should contain at least 4 characters!!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark"
-      });
-    }
-  }
+  };
 
   const editPassword = (id) => {
-    console.log("Editing", id)
-    setform({ ...passwordArray.filter(i => i.id === id)[0], id: id })
-    setpasswordArray(passwordArray.filter(item => item.id !== id))
-  }
+    console.log("Editing", id);
+    const selected = passwordArray.find(i => i.id === id);
+    setform(selected);
+  };
 
   const deletePassword = async (id) => {
     let c = confirm("Do you really want to delete this Password?")
@@ -133,7 +119,6 @@ function App() {
       });
       setpasswordArray(passwordArray.filter(item => item.id !== id))
       let res = await fetch("http://localhost:3000/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id }) })
-      // localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item => item.id !== id)))
     }
   }
 
