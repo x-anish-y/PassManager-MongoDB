@@ -1,7 +1,9 @@
 # 🔐 PassManager – Password Manager (MongoDB)
 
 PassManager is a secure full-stack password management web application built using Next.js and MongoDB.  
-It allows users to store, manage, and retrieve their credentials in an organized and efficient manner.
+It allows users to store, manage, and retrieve their credentials in an organized and efficient manner.<br><br>
+![PM Architecture](public/Screenshot%202025-10-25%20184052.png)
+
 
 ---
 
