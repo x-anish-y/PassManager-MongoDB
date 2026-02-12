@@ -1,16 +1,154 @@
-# React + Vite
+# 🔐 PassManager – Password Manager (MongoDB)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+PassManager is a secure full-stack password management web application built using Next.js and MongoDB.  
+It allows users to store, manage, and retrieve their credentials in an organized and efficient manner.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+- Add and store website credentials
+- View saved passwords securely
+- Delete saved credentials
+- MongoDB database integration
+- Clean and responsive UI
+- REST API support
+- Dynamic routing with Next.js
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Technology | Purpose |
+|------------|----------|
+| Next.js 14 | Frontend & Backend (App Router) |
+| React      | UI Components |
+| MongoDB    | Database |
+| Node.js    | Server Environment |
+| CSS / Tailwind | Styling |
+
+---
+
+## 📂 Project Structure
+
+```
+PassManager-MongoDB/
+│
+├── app/
+│   ├── api/                # API routes for CRUD operations
+│   └── page.js             # Main dashboard
+│
+├── components/             # Reusable UI components
+├── lib/
+│   └── mongodb.js          # MongoDB connection setup
+│
+├── public/                 # Static files
+└── package.json
+```
+
+---
+
+## ⚙️ How It Works
+
+1. User enters website name, username, and password.
+2. Data is sent to the backend API.
+3. Credentials are stored securely in MongoDB.
+4. Stored passwords are fetched and displayed dynamically.
+5. Users can delete entries when needed.
+
+---
+
+## 🔧 Installation & Setup
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/your-username/PassManager-MongoDB.git
+cd PassManager-MongoDB
+```
+
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Configure Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+```
+
+### 4️⃣ Run the Development Server
+
+```bash
+npm run dev
+```
+
+Open in browser:
+
+```
+http://localhost:3000
+```
+
+---
+
+## 📌 API Endpoints
+
+### ➤ Add Password
+`POST /api/passwords`
+
+### ➤ Get All Passwords
+`GET /api/passwords`
+
+### ➤ Delete Password
+`DELETE /api/passwords`
+
+---
+
+## 🌍 Deployment
+
+You can deploy this project on:
+
+- Vercel (Recommended)
+- Netlify
+- Any Node.js hosting platform
+
+Make sure to configure environment variables in the deployment dashboard.
+
+---
+
+## 🔒 Security Note
+
+Currently, passwords are stored in the database.  
+Future versions should implement:
+
+- Password encryption (bcrypt)
+- User authentication (JWT/Auth)
+- End-to-end encryption
+- Environment variable security best practices
+
+---
+
+## 📈 Future Enhancements
+
+- User authentication system
+- Password strength checker
+- Copy-to-clipboard feature
+- Edit password functionality
+- Dark mode
+- Role-based access control
+
+---
+
+## 👨‍💻 Author
+
+Developed as a full-stack password manager project using Next.js and MongoDB.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
